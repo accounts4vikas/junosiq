@@ -1,5 +1,6 @@
 ##############################################
-IMP for creating Spark Cluster on EC2
+
+IMP for creating Spark Cluster on EC2 to create password less ssh
 # On master: 
 Step 1: log in to ec2 using your .pem key
 Step 2: create two files 1. "touch /home/user-name/.ssh/id_rsa" 2. "touch /home/user-name/.ssh/id_rsa.pub"
@@ -15,5 +16,11 @@ $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 $ chmod 644 ~/.ssh/authorized_keys
 
 
+
+##############################################
+IMP Add following line to spark-env.sh to ensure that 
+you do not run out of disk space on workers node
+
+SPARK_WORKER_OPTS="-Dspark.worker.cleanup.enabled=true -Dspark.worker.cleanup.interval=600 -Dspark.worker.cleanup.appDataTtl=3600"
 
 ##############################################
