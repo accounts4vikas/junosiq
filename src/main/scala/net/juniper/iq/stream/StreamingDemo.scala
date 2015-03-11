@@ -1,7 +1,6 @@
 package net.juniper.iq.stream
 
 import java.math.BigInteger
-import net.juniper.iq.MetricsBeanWithMap
 import net.juniper.iq.Properties
 import net.juniper.iq.PropertyConstants
 import net.juniper.iq.stream.jvision.HeapInfo
@@ -96,7 +95,7 @@ class StreamingDemo private (@transient var conf: SparkConf) extends Serializabl
     val kvMinMaxJoinedDS = kvMinReducedDS.join(kvMaxReducedDS)
     val kvResultsDS = kvMinMaxJoinedDS.join(kvAvgResultPairDS)
     
-    val kvResultsMappedDS = kvResultsDS.map (input => MyFunctions.tupleToMetricsBeanWithMap(input)) 
+    val kvResultsMappedDS = kvResultsDS.map (input => MyFunctions.tupleToMetricsBean(input))
 
     kvResultsMappedDS.saveToCassandra(properties.getString(CASS_KEYSPACE_KEY), tableName)
   }
